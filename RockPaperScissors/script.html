@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>rock paper scissors</title></head><body><style>html,body{display: flex;justify-content: center;flex-direction: column;align-items: center;min-height: 100%;font-family: "Roboto Mono", monospace;}button{margin: 50px;}.btn {font-size: 20px;font-weight: 200;letter-spacing: 1px;padding: 13px 50px 13px;outline: 0;border: 1px solid black;cursor: pointer;position: relative;background-color: rgba(0, 0, 0, 0);}.btn::after {content: "";background-color: #ffe54c;width: 100%;z-index: -1;position: absolute;height: 100%;top: 7px;left: 7px;transition: 0.2s;}.btn:hover::after {top: 0px;left: 0px;}</style><h1 class="winner" style='text-align:center;'></h1><button type="button" class="btn">play a round</button><script>
+
+
+
+
+
+
+
+    // script starts here
+    const options = ["rock", "paper", "scissors"]
+    const winnerDisplay = document.querySelector('.winner')
+    const btn = document.querySelector('.btn')
+
+
+
+
+
+    // function that returns random option [rock, paper, scissors] for bot choise
+    const computerPlay = () => {
+        const randomNumber = Math.floor(Math.random() * 3)
+        return options[randomNumber]
+    }
+    
+    
+    
+
+
+
+
+    // main game logic
+    const gameRound = (playerSelection, computerSelection) => {
+
+        // this function for displaying winner in h1 tag
+        const winnerPrompt = (winner) => {
+
+            // if winner == draw write this
+            if (winner == 'draw') {
+                return winnerDisplay.innerHTML = 'draw.'}
+            
+            // if winner is human
+            winner == 'human' ? 
+            // write this in h1 tag
+            winnerDisplay.innerHTML = `you win ${playerSelection} beates ${computerSelection}` :
+            // if winner is not human write this
+            winnerDisplay.innerHTML = `you lost ${computerSelection} beates ${playerSelection}`
+        }
+
+
+    
+    
+    
+        // if condition for all possible wins for human
+        if (playerSelection == 'paper' && computerSelection == 'rock' ||
+            playerSelection == 'scissors' && computerSelection == 'paper' ||
+            playerSelection == 'rock' && computerSelection == 'scissors') {
+            winnerPrompt('human')
+        }
+        
+        
+        // if human is not winner
+        else {
+            if (playerSelection == computerSelection) {
+                winnerPrompt('draw')
+            }
+            if (playerSelection !== 'paper' | 'rock' | 'scissors') {
+                winnerDisplay.innerHTML = `please enter a valid option, rock, paper or scissors.`
+            } else {
+                winnerPrompt('computer')
+            }
+        }
+    }
+    
+    
+
+
+    // when button clicks the gameRound function triggers. 
+    btn.addEventListener('click', () => {
+        gameRound(prompt(`write your choise : 
+            rock , paper or scissors`).toLocaleLowerCase(), computerPlay())
+    })
+
+
+
+
+
+
+
+
+</script></body></html>
